@@ -5,3 +5,10 @@ server:
 spring:
   application:
     name: study
+
+logging:
+  config: classpath:logback-spring.xml
+
+
+elasticsearch:
+  ip: "localhost:9200"
