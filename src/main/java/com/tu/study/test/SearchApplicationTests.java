@@ -35,6 +35,8 @@ public class SearchApplicationTests {
                 "\"postDate\":\"2013-01-30\"," +
                 "\"message\":\"trying out Elasticsearch\"" +
                 "}";
+
+//        restHighLevelClient.search();
         request.source(jsonString, XContentType.JSON);
         IndexResponse index=restHighLevelClient.index(request, ElasticSearchConfig.COMMON_OPTIONS);
         log.info("index-------------:{}", index);
