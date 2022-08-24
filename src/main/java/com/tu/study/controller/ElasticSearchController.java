@@ -6,7 +6,6 @@ import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +15,6 @@ import java.io.IOException;
  * @author 屠永建
  * @version 1.0
  * 2021/11/14 19:59
- * @Description
  **/
 @RestController
 @Slf4j
