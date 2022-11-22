@@ -1,0 +1,20 @@
+@startuml
+title 列表页扩大搜索
+actor User as user
+
+participant "whs" as whs
+participant "hdata" as hdata
+participant "search" as search
+database "Redis" as redis
+
+autonumber
+user-> whs:getHotelList
+whs--> redis: 从redis获取数据
+redis--> whs:返回数据
+whs-->hdata:redis为空查询hdata
+hdata-->whs:返回当前城市酒店数量
+whs->whs:酒店数量写入redis并且判断是否大于扩大搜索数量限制
+whs-->search:酒店数量小于限制则把expandSearchScore置为true
+search->whs:返回数据
+whs-->user:返回酒店列表
+@enduml

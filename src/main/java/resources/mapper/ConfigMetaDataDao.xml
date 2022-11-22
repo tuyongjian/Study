@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tu.study.dao.ConfigMetaDataDao">
+
+    <resultMap id="resultMap" type="com.tu.study.dao.CfgMetaDataDTO">
+        <id column="ID" property="id" jdbcType="BIGINT"/>
+        <result column="CODE" property="code" jdbcType="VARCHAR"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="APPID" property="appid" jdbcType="VARCHAR"/>
+        <result column="DESCRIPTION" property="desc" jdbcType="VARCHAR"/>
+        <result column="FAT_LAST_VER_ID" property="fatLastVerId" jdbcType="BIGINT"/>
+        <result column="UAT_LAST_VER_ID" property="uatLastVerId" jdbcType="BIGINT"/>
+        <result column="PRD_LAST_VER_ID" property="prdLastVerId" jdbcType="BIGINT"/>
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR"/>
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <insert id="addConfigMetaData" useGeneratedKeys="true" keyProperty="id" parameterType="com.tu.study.dao.CfgMetaDataDTO" >
+      insert into cfg_metadata(
+          CODE,
+          NAME,
+          APPID,
+          DESCRIPTION,
+          FAT_LAST_VER_ID,
+          UAT_LAST_VER_ID,
+          PRD_LAST_VER_ID,
+          CREATE_DATE,
+          UPDATE_DATE,
+          CREATE_USER,
+          UPDATE_USER
+      ) values (
+          #{code},#{name},#{appid},#{desc},
+          #{fatLastVerId},#{uatLastVerId},#{prdLastVerId},now(),now(),#{createUser},#{updateUser}
+      )
+    </insert>
+
+
+
+
+</mapper>
