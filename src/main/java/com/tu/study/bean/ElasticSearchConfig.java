@@ -8,13 +8,14 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author 屠永建
  * @version 1.0
  * 2021/11/14 19:17
  **/
-//@Configuration
+@Configuration
 public class ElasticSearchConfig {
 
     @Value("${elasticsearch.ip}")
