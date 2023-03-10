@@ -18,7 +18,7 @@ public class ServiceB {
     @Resource
     private ConfigMetaDataDao configMetaDataDao;
 
-    //@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void testTransactionalREQUIRED(){
         CfgMetaDataDTO cfgMetaDataDto = new CfgMetaDataDTO();
         cfgMetaDataDto.setCode("REQUIRED-B");
@@ -33,6 +33,7 @@ public class ServiceB {
         configMetaDataDao.addConfigMetaData(cfgMetaDataDto);
         int i = 1/0;
     }
+
     @Transactional(propagation = Propagation.MANDATORY,rollbackFor = Exception.class)
     public void testTransactionalMANDATORY(){
         CfgMetaDataDTO cfgMetaDataDto = new CfgMetaDataDTO();
@@ -40,12 +41,16 @@ public class ServiceB {
         configMetaDataDao.addConfigMetaData(cfgMetaDataDto);
         int i = 1/0;
     }
+
     @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
     public void testTransactionalREQUIRES_NEW(){
         CfgMetaDataDTO cfgMetaDataDto = new CfgMetaDataDTO();
         cfgMetaDataDto.setCode("REQUIRES_NEW-B");
         configMetaDataDao.addConfigMetaData(cfgMetaDataDto);
+        int i = 1/0;
+
     }
+
     @Transactional(propagation = Propagation.NOT_SUPPORTED,rollbackFor = Exception.class)
     public void testTransactionalNOT_SUPPORTED(){
         CfgMetaDataDTO cfgMetaDataDto = new CfgMetaDataDTO();
@@ -53,17 +58,18 @@ public class ServiceB {
         configMetaDataDao.addConfigMetaData(cfgMetaDataDto);
         int i = 1/0;
     }
+
     @Transactional(propagation = Propagation.NEVER,rollbackFor = Exception.class)
     public void testTransactionalNEVER(){
         CfgMetaDataDTO cfgMetaDataDto = new CfgMetaDataDTO();
         cfgMetaDataDto.setCode("NEVER-B");
         configMetaDataDao.addConfigMetaData(cfgMetaDataDto);
     }
+
     @Transactional(propagation = Propagation.NESTED,rollbackFor = Exception.class)
     public void testTransactionalNESTED(){
         CfgMetaDataDTO cfgMetaDataDto = new CfgMetaDataDTO();
         cfgMetaDataDto.setCode("NESTED-B");
         configMetaDataDao.addConfigMetaData(cfgMetaDataDto);
-        int i = 1/0;
     }
 }

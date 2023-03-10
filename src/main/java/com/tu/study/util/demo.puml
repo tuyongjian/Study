@@ -1,20 +1,17 @@
 @startuml
-title 列表页扩大搜索
-actor User as user
+title 版本支持白名单
+participant "appapi" as appapi
+participant "conf" as conf
 
-participant "whs" as whs
-participant "hdata" as hdata
-participant "search" as search
-database "Redis" as redis
+
+
 
 autonumber
-user-> whs:getHotelList
-whs--> redis: 从redis获取数据
-redis--> whs:返回数据
-whs-->hdata:redis为空查询hdata
-hdata-->whs:返回当前城市酒店数量
-whs->whs:酒店数量写入redis并且判断是否大于扩大搜索数量限制
-whs-->search:酒店数量小于限制则把expandSearchScore置为true
-search->whs:返回数据
-whs-->user:返回酒店列表
+appapi-->conf:请求getBackData接口获取配置(key为AppApiVersionWhite)
+conf--> appapi:返回配置数据，放入内存缓存
+appapi-->appapi:判断接口是否为空
+appapi-->appapi:判断平台是否匹配
+appapi-->appapi:判断用户当前版本是否大于等于配置的版本
+appapi-->appapi:判断秘钥是否为空
+appapi-->appapi:以上都满足，则放行，否则走原逻辑
 @enduml

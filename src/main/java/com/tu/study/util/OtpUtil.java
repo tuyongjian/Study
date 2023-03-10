@@ -33,15 +33,30 @@ public class OtpUtil {
     }
 
     private static int month(){
-        int current = 65919;
-        int addmonth = 3500;
-        int everyMonth = 7350;
+        int current = 52152;
+        int addmonth = 2660;
+
         int monthSum = 0;
-        while (current > everyMonth){
-            current = current-everyMonth+addmonth;
+        int gjjsum = 978260;
+        int ggjsumjs = 3623;
+
+        int yhsum = 137666;
+        int yhsumjs  = 388;
+        int gjj = 6159;
+        int gjjjs = 9;
+        int yh = 1023;
+        int yhjs = 2;
+        while (current > (gjj+yh)){
+            current = current-((gjj+yh))+addmonth;
+            gjj = gjj - gjjjs;
+            yh = yh - yhjs;
             ++monthSum;
+            gjjsum = gjjsum-ggjsumjs;
+            yhsum = yhsum - yhsumjs;
         }
         System.out.println(current);
+        System.out.println(gjjsum);
+        System.out.println(yhsum);
         return monthSum;
     }
 }
