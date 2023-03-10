@@ -1,3 +1,4 @@
+/*
 package com.tu.study.transactional;
 
 import org.springframework.context.annotation.Bean;
@@ -6,11 +7,13 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
 
+*/
 /**
  * @author tuyongjian
  * @date 2022/12/5 10:07
- */
-@Configuration
+ *//*
+
+//@Configuration
 public class TransactionConfig {
 
     @Bean
@@ -25,3 +28,4 @@ public class TransactionConfig {
         return transactionTemplate;
     }
 }
+*/

@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * @author tuyongjian
  * @date 2022/11/22 15:09
  */
-@Service
+//@Service
 public class ServicePropagation {
 
 

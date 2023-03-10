@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * @author tuyongjian
  * @date 2022/11/22 10:43
  */
-@Service
+//@Service
 public class ServiceLose {
 
     @Resource
