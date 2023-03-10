@@ -6,9 +6,9 @@ import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 
 /**
@@ -20,7 +20,7 @@ import java.io.IOException;
 @Slf4j
 public class ElasticSearchController {
 
-    @Autowired
+    @Resource
     private RestHighLevelClient restHighLevelClient;
 
     public void contextLoads() throws IOException {
