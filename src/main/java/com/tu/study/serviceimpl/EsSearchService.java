@@ -88,7 +88,7 @@ public class EsSearchService {
 
     public List<EsStudentDto> highlightBuilder(EsStudentDto esStudentDto){
         BoolQueryBuilder esQuery=QueryBuilders.boolQuery()
-                .should(QueryBuilders.matchQuery("sName", esStudentDto.getSName()));
+                .should(QueryBuilders.termQuery("sName.keyword", esStudentDto.getSName()));
         //高亮显示
         HighlightBuilder highlightBuilder = new HighlightBuilder();
         highlightBuilder.field("sName");
