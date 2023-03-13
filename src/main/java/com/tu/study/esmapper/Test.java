@@ -18,7 +18,7 @@ import java.util.Optional;
 public class Test {
 
     @Resource
-    private EsStudyMapper esStudyMapper;
+    private EsStudentMapper esStudentMapper;
 
     @org.junit.jupiter.api.Test
     public void testSave(){
@@ -32,14 +32,14 @@ public class Test {
                 .sCreateTime(new Date())
                 .build();
 
-        EsStudentDto save = esStudyMapper.save(esStudentDto);
+        EsStudentDto save = esStudentMapper.save(esStudentDto);
         log.info("es save result---{}",save.toString());
 
     }
 
     @org.junit.jupiter.api.Test
     public void testQuery(){
-        Optional<EsStudentDto> byId = esStudyMapper.findById("1");
+        Optional<EsStudentDto> byId = esStudentMapper.findById("1");
         log.info("es query result---{}",byId.get().toString());
 
     }
