@@ -5,6 +5,9 @@ server:
 spring:
   application:
     name: study
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
 
 elasticsearch:
   ip: "localhost:9200"

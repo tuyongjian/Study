@@ -1,17 +1,17 @@
 @startuml
-title 版本支持白名单
-participant "appapi" as appapi
-participant "conf" as conf
+title UML时序图示例
 
+actor 用户
+participant 系统
+participant 订单
+participant 支付
+participant 订单管理
 
-
-
-autonumber
-appapi-->conf:请求getBackData接口获取配置(key为AppApiVersionWhite)
-conf--> appapi:返回配置数据，放入内存缓存
-appapi-->appapi:判断接口是否为空
-appapi-->appapi:判断平台是否匹配
-appapi-->appapi:判断用户当前版本是否大于等于配置的版本
-appapi-->appapi:判断秘钥是否为空
-appapi-->appapi:以上都满足，则放行，否则走原逻辑
+用户 -> 系统:提交订单请求
+系统 -> 订单管理:创建订单
+订单管理 -> 订单:创建订单信息
+订单 -> 支付:请求支付
+支付 -> 系统:处理订单支付
+系统 -> 订单管理:更新订单状态
+订单管理 -> 订单:更新订单状态信息
 @enduml

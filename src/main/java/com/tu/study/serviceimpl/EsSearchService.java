@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHit;
@@ -85,7 +84,9 @@ public class EsSearchService {
         return list;
     }
 
-
+    /**
+     * 搜索词 高亮展示
+     */
     public List<EsStudentDto> highlightBuilder(EsStudentDto esStudentDto){
         BoolQueryBuilder esQuery=QueryBuilders.boolQuery()
                 .should(QueryBuilders.termQuery("sName.keyword", esStudentDto.getSName()));
