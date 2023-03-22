@@ -4,6 +4,7 @@ import com.tu.study.dto.EsStudentDto;
 import com.tu.study.esmapper.EsStudentMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.springframework.data.domain.PageRequest;
@@ -123,6 +124,13 @@ public class EsSearchService {
             }
             list.add(content);
         }
+        return list;
+    }
+
+    public List<EsStudentDto> searchPinYin(String keyword){
+        Iterable<EsStudentDto> search = esStudentMapper.search(QueryBuilders.matchQuery("sAddress.pinyin", keyword));
+        List<EsStudentDto> list = new ArrayList<>();
+        search.forEach((c)-> list.add(c));
         return list;
     }
 

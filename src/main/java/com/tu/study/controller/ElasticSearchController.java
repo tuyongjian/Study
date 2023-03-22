@@ -78,5 +78,9 @@ public class ElasticSearchController {
     public List<EsStudentDto> highlightBuilder(@RequestBody EsStudentDto esStudentDto){
         return esSearchService.highlightBuilder(esStudentDto);
     }
+    @GetMapping(value = "/searchPinYin")
+    public List<EsStudentDto> searchPinYin(@RequestParam(value = "keyword") String keyword){
+        return esSearchService.searchPinYin(keyword);
+    }
 
 }

@@ -1,0 +1,17 @@
+{
+  "user": {
+    "properties": {
+      "title": {
+        "type": "keyword",
+        "fields": {
+          "pinyin": {
+            "type": "text",
+            "store": "no",
+            "term_vector": "with_offsets",
+            "analyzer": "pinyin_analyzer"
+          }
+        }
+      }
+    }
+  }
+}

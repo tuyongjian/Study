@@ -27,7 +27,7 @@ public class EsStudentDto {
     @Field(store = true, type = FieldType.Keyword)
     private String sName;
 
-    @Field(store = true, type = FieldType.Text, analyzer = "ik_smart")
+    @Field(store = true, type = FieldType.Text, analyzer = "pinyin_analyzer")
     //Text可以分词 ik_smart=粗粒度分词 ik_max_word 为细粒度分词
     private String sAddress;
 
