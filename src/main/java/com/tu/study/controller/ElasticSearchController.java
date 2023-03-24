@@ -2,6 +2,7 @@ package com.tu.study.controller;
 
 import com.tu.study.bean.ElasticSearchConfig;
 import com.tu.study.dto.EsStudentDto;
+import com.tu.study.dto.Medcl;
 import com.tu.study.serviceimpl.EsSearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.index.IndexRequest;
@@ -45,7 +46,7 @@ public class ElasticSearchController {
         try {
             index = restHighLevelClient.index(request, ElasticSearchConfig.COMMON_OPTIONS);
         } catch (IOException e) {
-
+            log.error("--------",e);
         }
         log.info("index-------------:{}", index);
     }
@@ -78,8 +79,16 @@ public class ElasticSearchController {
     public List<EsStudentDto> highlightBuilder(@RequestBody EsStudentDto esStudentDto){
         return esSearchService.highlightBuilder(esStudentDto);
     }
+
+
+
+    @PostMapping(value = "/addUser")
+    public Medcl addUser(@RequestBody Medcl medcl){
+        return esSearchService.addUser(medcl);
+    }
+
     @GetMapping(value = "/searchPinYin")
-    public List<EsStudentDto> searchPinYin(@RequestParam(value = "keyword") String keyword){
+    public List<Medcl> searchPinYin(@RequestParam(value = "keyword") String keyword){
         return esSearchService.searchPinYin(keyword);
     }
 

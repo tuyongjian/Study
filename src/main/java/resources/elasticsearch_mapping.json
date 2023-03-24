@@ -1,20 +1,56 @@
 {
-  "index" : {
-    "analysis" : {
-      "analyzer" : {
-        "pinyin_analyzer" : {
-          "tokenizer" : "my_pinyin"
-        }
-      },
-      "tokenizer" : {
-        "my_pinyin" : {
-          "type" : "pinyin",
-          "keep_separate_first_letter" : false,
-          "keep_full_pinyin" : true,
-          "keep_original" : true,
-          "limit_first_letter_length" : 16,
-          "lowercase" : true,
-          "remove_duplicated_term" : true
+  "user" : {
+    "mappings" : {
+      "properties" : {
+        "_class" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "age" : {
+          "type" : "long"
+        },
+        "id" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "name" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "sex" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "smallName" : {
+          "type" : "text",
+          "analyzer": "pinyin_analyzer",
+          "search_analyzer": "pinyin_analyzer",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
         }
       }
     }

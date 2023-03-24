@@ -1,10 +1,11 @@
 package com.tu.study.serviceimpl;
 
 import com.tu.study.dto.EsStudentDto;
+import com.tu.study.dto.Medcl;
 import com.tu.study.esmapper.EsStudentMapper;
+import com.tu.study.esmapper.EsUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.springframework.data.domain.PageRequest;
@@ -30,6 +31,9 @@ public class EsSearchService {
 
     @Resource
     private EsStudentMapper esStudentMapper;
+
+    @Resource
+    private EsUserMapper esUserMapper;
 
     @Resource
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
@@ -127,9 +131,18 @@ public class EsSearchService {
         return list;
     }
 
-    public List<EsStudentDto> searchPinYin(String keyword){
-        Iterable<EsStudentDto> search = esStudentMapper.search(QueryBuilders.matchQuery("sAddress.pinyin", keyword));
-        List<EsStudentDto> list = new ArrayList<>();
+
+    public Medcl addUser(Medcl medcl){
+       return elasticsearchRestTemplate.save(medcl);
+    }
+
+    public List<Medcl> searchPinYin(String keyword){
+        String field = "name.pinyin";
+        NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(QueryBuilders.matchPhraseQuery(field, keyword))
+                .build();
+        Iterable<Medcl> search = esUserMapper.search(searchQuery);
+        List<Medcl> list = new ArrayList<>();
         search.forEach((c)-> list.add(c));
         return list;
     }

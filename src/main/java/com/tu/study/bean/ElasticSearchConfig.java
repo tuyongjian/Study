@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @version 1.0
  * 2021/11/14 19:17
  **/
-//@Configuration
+@Configuration
 public class ElasticSearchConfig {
 
     @Value("${elasticsearch.ip}")
