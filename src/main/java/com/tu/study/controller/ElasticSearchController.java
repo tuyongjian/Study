@@ -66,6 +66,11 @@ public class ElasticSearchController {
         return esSearchService.findStudent(sName);
     }
 
+    @GetMapping(value = "/fuzzyStudent")
+    public List<EsStudentDto> fuzzyStudent(@RequestParam(value = "sName") String sName ){
+        return esSearchService.fuzzyStudent(sName);
+    }
+
     @PostMapping(value = "/searchStudent")
     public List<EsStudentDto> searchStudent(@RequestBody EsStudentDto esStudentDto){
         return esSearchService.searchStudent(esStudentDto);

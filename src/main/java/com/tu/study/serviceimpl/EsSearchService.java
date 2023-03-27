@@ -5,7 +5,9 @@ import com.tu.study.dto.Medcl;
 import com.tu.study.esmapper.EsStudentMapper;
 import com.tu.study.esmapper.EsUserMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.springframework.data.domain.PageRequest;
@@ -54,6 +56,26 @@ public class EsSearchService {
     public EsStudentDto findStudent(String sName){
         return esStudentMapper.findBysName(sName);
     }
+
+    public List<EsStudentDto> fuzzyStudent(String sName){
+        /*fuzziness：表示输入的关键字通过几次操作可以转变成为ES库里面的对应field的字段
+
+        操作是指：新增一个字符，删除一个字符，修改一个字符，每次操作可以记做编辑距离为1，
+        如中文集团到中威集团编辑距离就是1，只需要修改一个字符；
+        该参数默认值为0，即不开启模糊查询，一样的，
+        如果fuzziness值在这里设置成2，会把编辑距离为2的东东集团也抓出来。
+        prefix_length：表示限制输入关键字和ES对应查询field的内容开头的第n个字符必须完全匹配，不允许错别字匹配
+
+        如这里等于1，则表示开头的中字必须匹配，不匹配则不返回
+                默认值也是0
+        加大prefix_length的值可以提高效率和准确率。*/
+        QueryBuilder queryBuilder = QueryBuilders.fuzzyQuery("sName",sName).prefixLength(0).fuzziness(Fuzziness.ZERO);
+        Iterable<EsStudentDto> search = esStudentMapper.search(queryBuilder);
+        List<EsStudentDto> list = new ArrayList<>();
+        search.forEach((c)-> list.add(c));
+        return list;
+    }
+
 
     /**
      * and 搜索 二个条件都要满足

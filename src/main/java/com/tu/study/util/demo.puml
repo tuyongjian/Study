@@ -1,17 +1,30 @@
 @startuml
-title UML时序图示例
+title 商城、百宝箱支付传appID
+actor app as user
+participant "pay" as pay
+participant "商城" as 商城
+participant "百宝箱" as 百宝箱
+participant "支付网关" as 支付网关
 
-actor 用户
-participant 系统
-participant 订单
-participant 支付
-participant 订单管理
 
-用户 -> 系统:提交订单请求
-系统 -> 订单管理:创建订单
-订单管理 -> 订单:创建订单信息
-订单 -> 支付:请求支付
-支付 -> 系统:处理订单支付
-系统 -> 订单管理:更新订单状态
-订单管理 -> 订单:更新订单状态信息
+user-> pay:getCommonMixPay
+activate pay
+
+alt  商城
+    pay-> 商城: 调用hmallApi/payment/createPayInfo创建支付单
+    activate 商城
+    商城 -> 商城: 创建支付信息
+    商城 -> pay: 返回appId
+    deactivate 商城
+else 百宝箱
+   pay-> 百宝箱: 调用 api/order/checkOrderStatus创建支付单
+   activate 百宝箱
+   百宝箱 -> 百宝箱: 校验支付是否合法
+   百宝箱 -> pay: 返回appId，hotelId
+   deactivate 百宝箱
+end
+
+pay -> 支付网关: 创建支付单
+支付网关 -> pay: 返回支付信息
+deactivate pay
 @enduml
