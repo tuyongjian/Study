@@ -1,32 +1,18 @@
 @startuml
-actor User
-participant "Controller" as C
-participant "Service" as S
-participant "Repository" as R
+title 券包膨胀券
+actor app as user
+participant "appapi" as appapi
+participant "crm" as crm
+participant "maapi" as maapi
 
-User -> C: Request data
-activate C
 
-alt Option A
-    C -> S: Retrieve data A
-    activate S
-    S -> R: Query data A
-    activate R
-    R --> S: Return data A to service
-    deactivate R
-    S --> C: Return data A to controller
-    deactivate S
-else Option B
-    C -> S: Retrieve data B
-    activate S
-    S -> R: Query data B
-    activate R
-    R --> S: Return data B to service
-    deactivate R
-    S --> C: Return data B to controller
-    deactivate S
-end
+user-> appapi:ticket/hotelEcouponList查询酒店券
 
-C --> User: Return data to user
-deactivate C
+appapi-> crm: 调用api/ECoupons/Get_TicketByMember查询券包
+crm -> appapi: 返回券包信息
+appapi -> appapi: 过滤出膨胀券 activityFlag=EXPAND开头,activityFlag=EXPAND开头&&FINISH结尾是已膨胀
+appapi -> maapi: 调用 http://test-crm-maapi.huazhuidc.com/api/ma/progress接口获取膨胀券状态和倒计时
+maapi -> appapi: 返回膨胀券状态
+appapi -> appapi: 组装数据
+appapi -> user: 返回数据
 @enduml

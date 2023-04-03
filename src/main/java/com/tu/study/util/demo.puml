@@ -1,5 +1,5 @@
 @startuml
-title 商城、百宝箱支付传appID
+title 商城、百宝箱支付传appId,hotelId
 actor app as user
 participant "pay" as pay
 participant "商城" as 商城
@@ -24,7 +24,7 @@ else 百宝箱
    deactivate 百宝箱
 end
 
-pay -> 支付网关: 创建支付单
+pay -> 支付网关: 创建支付单  CreateDeductBill
 支付网关 -> pay: 返回支付信息
 deactivate pay
 @enduml

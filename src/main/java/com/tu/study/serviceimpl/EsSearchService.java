@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 使用 类似于jpa的模型或者是使用 restTemplate的模式进行操作
  * @author tuyongjian
  * @date 2023/3/13 10:21
  */
@@ -59,13 +60,12 @@ public class EsSearchService {
 
     public List<EsStudentDto> fuzzyStudent(String sName){
         /*fuzziness：表示输入的关键字通过几次操作可以转变成为ES库里面的对应field的字段
-
         操作是指：新增一个字符，删除一个字符，修改一个字符，每次操作可以记做编辑距离为1，
         如中文集团到中威集团编辑距离就是1，只需要修改一个字符；
         该参数默认值为0，即不开启模糊查询，一样的，
         如果fuzziness值在这里设置成2，会把编辑距离为2的东东集团也抓出来。
-        prefix_length：表示限制输入关键字和ES对应查询field的内容开头的第n个字符必须完全匹配，不允许错别字匹配
 
+        prefix_length：表示限制输入关键字和ES对应查询field的内容开头的第n个字符必须完全匹配，不允许错别字匹配
         如这里等于1，则表示开头的中字必须匹配，不匹配则不返回
                 默认值也是0
         加大prefix_length的值可以提高效率和准确率。*/

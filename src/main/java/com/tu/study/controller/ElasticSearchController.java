@@ -1,18 +1,14 @@
 package com.tu.study.controller;
 
-import com.tu.study.bean.ElasticSearchConfig;
 import com.tu.study.dto.EsStudentDto;
 import com.tu.study.dto.Medcl;
+import com.tu.study.serviceimpl.EsSearchHighLevelClientService;
 import com.tu.study.serviceimpl.EsSearchService;
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.search.SearchHit;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,29 +22,42 @@ import java.util.List;
 public class ElasticSearchController {
 
     @Resource
-    private RestHighLevelClient restHighLevelClient;
-
-    @Resource
     private EsSearchService esSearchService;
 
-    @GetMapping(value = "/testRestHighLevelClient")
+    @Resource
+    private EsSearchHighLevelClientService esSearchHighLevelClientService;
+
+    @GetMapping(value = "/testRestHighLevelClientCreate")
     public void testRestHighLevelClient(){
-        //测试保存
-        IndexRequest request = new IndexRequest("posts");
-        request.id("1");
-        String jsonString = "{" +
-                "\"user\":\"kimchy\"," +
-                "\"postDate\":\"2013-01-30\"," +
-                "\"message\":\"trying out Elasticsearch\"" +
-                "}";
-        request.source(jsonString, XContentType.JSON);
-        IndexResponse index= null;
-        try {
-            index = restHighLevelClient.index(request, ElasticSearchConfig.COMMON_OPTIONS);
-        } catch (IOException e) {
-            log.error("--------",e);
-        }
-        log.info("index-------------:{}", index);
+        esSearchHighLevelClientService.createIndex();
+    }
+
+    @PostMapping(value = "/testRestHighLevelClientbulkRequest")
+    public void testRestHighLevelClientbulkRequest(@RequestBody List<Medcl> list){
+        esSearchHighLevelClientService.bulkRequestTest(list);
+    }
+
+    @GetMapping(value = "/testRestHighLevelClientUpdate")
+    public void testRestHighLevelClientUpdate(){
+        esSearchHighLevelClientService.update();
+    }
+
+    @GetMapping(value = "/testRestHighLevelClientDelete")
+    public void testRestHighLevelClientDelete(){
+        esSearchHighLevelClientService.delete();
+    }
+
+    @GetMapping(value = "/testRestHighLevelClientDeleteByQueryRequest")
+    public void testRestHighLevelClientDeleteByQueryRequest(@RequestParam String name){
+        esSearchHighLevelClientService.deleteByQueryRequestTest(name);
+    }
+    @GetMapping(value = "/testRestHighLevelClientBulkDiffRequest")
+    public void testRestHighLevelClientbulkDiffRequest(){
+        esSearchHighLevelClientService.bulkDiffRequestTest();
+    }
+    @GetMapping(value = "/testRestHighLevelClientSelectByName")
+    public SearchHit[] testRestHighLevelClientbulkDiffRequest(@RequestParam String name){
+        return esSearchHighLevelClientService.selectByName(name);
     }
 
     @PostMapping(value = "/addStudent")
