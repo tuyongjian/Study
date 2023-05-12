@@ -9,6 +9,35 @@ spring:
     rest:
       uris: http://localhost:9200
 
+
+  kafka:
+    bootstrap-servers: XXX
+    consumer:
+      group-id: study
+      auto-offset-reset: latest
+  rabbitmq:
+    host: XXX
+    port: 5672
+    virtual-host: XXX
+    username: XXX
+    password: XXX
+    listener:
+      simple:
+        max-concurrency: 1
+        prefetch: 1
+  cloud:
+    stream:
+      bindings:
+        kafka-input:
+          binder: kafka
+          destination: 队列名
+          content-type: application/json
+        rabbit-input:
+          binder: rabbit
+          destination: 队列名
+          content-type: application/json
+
+
 elasticsearch:
   ip: "localhost:9200"
 

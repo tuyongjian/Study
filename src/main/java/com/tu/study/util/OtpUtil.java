@@ -33,16 +33,16 @@ public class OtpUtil {
     }
 
     private static int month(){
-        int current = 52152;
+        int current = 45803;
         int addmonth = 2660;
 
         int monthSum = 0;
-        int gjjsum = 978260;
+        int gjjsum = 971014;
         int ggjsumjs = 3623;
 
-        int yhsum = 137666;
+        int yhsum = 136888;
         int yhsumjs  = 388;
-        int gjj = 6159;
+        int gjj = 6131;
         int gjjjs = 9;
         int yh = 1023;
         int yhjs = 2;
